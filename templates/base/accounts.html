@@ -1,0 +1,27 @@
+{% load static %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>APL Helpdesk | {% block title %}{% endblock title %}</title>
+    <meta content="" name="descriptison" />
+    <meta content="" name="keywords" />
+    <meta name="robots" content="NOINDEX, NOFOLLOW">
+
+    <!-- Favicons -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon" />
+    <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  </head>
+  <body>
+    {% block accounts %}
+    {% endblock accounts %}
+  </body>
+</html>

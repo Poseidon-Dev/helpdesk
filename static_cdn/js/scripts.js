@@ -14,6 +14,16 @@ function toggler() {
 
 function ticket() {
     console.log('Ticket situation')
-    window.location.href = 'http://localhost:8000/ticket/'
+    window.location.href = 'http://localhost:8000/tickets/2'
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const rows = document.querySelectorAll("div[data-href]");
+
+    rows.forEach((row) => {
+        row.addEventListener("click", () => {
+        window.location.href = row.dataset.href;
+        });
+    });
+});
 

@@ -6,7 +6,7 @@
                     <span class="material-icons">dashboard</span>
                     <p>Dashboard</p></a>
                 </li>
-                <li><a href="http://localhost:8000/home/" >
+                <li><a href="?test=Desk" >
                     <span class="material-icons">switch_left</span>
                     <p class="hidden-item">Change Desk</p></a>
                     <ul class='dropdown'>
@@ -32,7 +32,7 @@
                         </li>
                     </ul>
                 </li>
-                <li><a href="?test=Tickets" class="active">
+                <li><a href="http://localhost:8000/tickets/" class="active">
                     <span class="material-icons">label_important</span>
                     <p>Tickets</p></a>
                     <ul class="dropdown">
@@ -86,13 +86,17 @@
                 </li>
             </ul>
         </div>
-        {% comment %} <div class="detail">
+        <div class="detail">
             <ul>
                 <li><a id="toggler" onclick="toggler()">
+                    <span class="material-icons">logout</span>
+                    <p>logout</p>
+                </a></li>
+                {% comment %} <li><a id="toggler" onclick="toggler()">
                     <span class="material-icons">menu</span>
                     <p>Collapse Menu</p>
-                </a></li>
+                </a></li> {% endcomment %}
             </ul>
-        </div> {% endcomment %}
+        </div>
     </div>
 </section>

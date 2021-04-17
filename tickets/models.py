@@ -186,6 +186,7 @@ def mk_secret():
 
 class Ticket(models.Model):
 
+    NEW_STATUS = 0
     OPEN_STATUS = 1
     REOPENED_STATUS = 2
     RESOLVED_STATUS = 3
@@ -193,6 +194,7 @@ class Ticket(models.Model):
     DUPLICATE_STATUS = 5
 
     STATUS_CHOICES = (
+        (NEW_STATUS, _('New')),
         (OPEN_STATUS, _('Open')),
         (REOPENED_STATUS, _('Reopened')),
         (RESOLVED_STATUS, _('Resolved')),
@@ -223,7 +225,9 @@ class Ticket(models.Model):
     assocaited_employee = models.ForeignKey(
         'Employees',
         on_delete=models.CASCADE,
-        verbose_name=_('Employees')
+        verbose_name=_('Employees'),
+        blank=True,
+        null=True,
     )
     container = models.ForeignKey(
         'Container',
@@ -233,20 +237,21 @@ class Ticket(models.Model):
     created = models.DateTimeField(
         _('Created'),
         blank=True,
+        default=timezone.now()
     )
     modified = models.DateTimeField(
         _('Modified'),
         blank=True,
     )
     submitter = models.ForeignKey(
-        'Users',
+        get_user_model(),
         related_name=_('submitter'),
         on_delete=models.CASCADE,
         blank=False,
         null=False,
     )
     technician = models.ForeignKey(
-        'Users',
+        get_user_model(),
         related_name=_('technician'),
         on_delete=models.CASCADE,
         blank=True,
@@ -255,7 +260,7 @@ class Ticket(models.Model):
     status = models.IntegerField(
         _('Status'),
         choices=STATUS_CHOICES,
-        default=OPEN_STATUS
+        default=NEW_STATUS
     )
     resolution = models.TextField(
         _('Resolution'),
@@ -314,6 +319,15 @@ class Ticket(models.Model):
         return u"%s-%s" % (self.queue.slug, self.id)
     ticket_for_url = property(_get_ticket_for_url)
 
+    def _get_status_css_class(self):
+        if self.status == 0:
+            return 'new'
+        elif self.status == 1:
+            return 'open'
+        elif self.status == 4:
+            return 'closed'
+    get_status_css_class = property(_get_status_css_class)
+
     def _get_priority_css_class(self):
         if self.priority == 2:
             return "warning"
@@ -336,7 +350,7 @@ class Ticket(models.Model):
 
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse('helpdesk:view', args=(self.id,))
+        return reverse('tickets:detail', kwargs={"id": self.id})
 
     def save(self, *args, **kwargs):
         if not self.priority:
@@ -376,7 +390,7 @@ class Comment(models.Model):
         default=False,
     )
     user = models.ForeignKey(
-        'Users',
+        get_user_model(),
         related_name=_('commenter'),
         on_delete=models.CASCADE,
         blank=True,
@@ -399,7 +413,7 @@ class Comment(models.Model):
     )
 
     class Meta:
-        ordering = ('date',)
+        ordering = ('-date',)
         verbose_name = _('Comment')
         verbose_name_plural = _('Comments')
 

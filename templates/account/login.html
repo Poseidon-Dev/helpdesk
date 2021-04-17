@@ -1,0 +1,36 @@
+{% extends 'base/accounts.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}Login{% endblock title %}
+{% block accounts %}
+<section class='accounts'>
+  <div class="wrapper">
+    <h1>Helpdesk</h1>
+    <form method="POST" action="{% url 'account_login' %}">
+      {% csrf_token %}
+      <div class="username">
+        <div class="input-wrapper">
+          {{ form.login }}
+        </div>
+      </div>
+      <div class="password">
+        <div class="input-wrapper">
+          {{ form.password }}
+        </div>
+      </div>
+      {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+      <div class="submit">
+        <button type="submit">LOGIN</button>
+        <div class="remember">
+          <p>Remember me</p>
+          {{ form.remember }}
+        </div>
+        <a class="link" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+        <a class="link" href="{{ signup_url }}">Sign Up</a>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock accounts %}

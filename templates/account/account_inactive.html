@@ -1,0 +1,14 @@
+{% extends 'base/accounts.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}Accounts Inactive{% endblock title %}
+{% block accounts %}
+<section class='accounts'>
+  <div class="wrapper">
+    <h1>{% trans "Account Inactive" %}</h1>
+    <div class="submit">
+        <p>{% trans "This account is inactive." %}</p>
+    </div>
+  </div>
+</section>
+{% endblock accounts %}

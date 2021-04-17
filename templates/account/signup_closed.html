@@ -1,0 +1,14 @@
+{% extends 'base/accounts.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}Sigup Closed{% endblock title %}
+{% block accounts %}
+<section class='accounts'>
+  <div class="wrapper">
+    <h1>{% trans "Sign Up Closed" %}</h1>
+    <div class="submit">
+        <p>{% trans "We are sorry, but the sign up is currently closed." %}</p>
+    </div>
+  </div>
+</section>
+{% endblock %}

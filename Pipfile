@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 django = "*"
 markdown = "*"
+requests = "*"
+django-allauth = "*"
 
 [dev-packages]
 

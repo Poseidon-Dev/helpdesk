@@ -1,78 +1,26 @@
 {% extends 'base/base.html' %}
 {% block content %}
 {% include 'base/title.html' %}
-<div class="head">
-    <p></p>
-    <p>ISSUE</p>
-    <p>Category</p>
-    <p>DIVISION</p>
-    <p>USER</p>
-    <p>TECH</p>
-    <p>CREATED</p>
-</div>
-<div class="records">
-    <div class="record new" onclick='ticket()'>
-        <p></p>
-        <p>New Device - iPhone (17394)</p>
-        <p>New</p>
-        <p>09-Pacific</p>
-        <p>Isabel Y</p>
-        <p>Clara M</p>
-        <p>2021-04-08</p>
+<div class="ticket-home">
+    <div class="head">
+        <p>ISSUE</p>
+        <p>Category</p>
+        <p>DIVISION</p>
+        <p>USER</p>
+        <p>TECH</p>
+        <p>CREATED</p>
     </div>
-    <div class="record taken">
-        <p></p>
-        <p>New Device - iPhone (16043)</p>
-        <p>Waypoint</p>
-        <p>09-Pacific</p>
-        <p>Isabel Y</p>
-        <p>Clara M</p>
-        <p>2021-04-08</p>
-    </div>
-    <div class="record response-needed">
-        <p></p>
-        <p>Email - Failed Delivery</p>
-        <p>Email</p>
-        <p>09-Pacific</p>
-        <p>Isabel Y</p>
-        <p>Johnny W</p>
-        <p>2021-04-08</p>
-    </div>
-    <div class="record taken">
-        <p></p>
-        <p>Email - Failed Delivery</p>
-        <p>Email</p>
-        <p>09-Pacific</p>
-        <p>Perla M</p>
-        <p>Johnny W</p>
-        <p>2021-04-08</p>
-    </div>
-    <div class="record new">
-        <p></p>
-        <p>New Device - iPad (17261)</p>
-        <p>Waypoint</p>
-        <p>02-Phoenix</p>
-        <p>Angie B</p>
-        <p>Josh A</p>
-        <p>2021-04-08</p>
-    </div>
-    <div class="record new">
-        <p></p>
-        <p>New Device - Laptop (17407)</p>
-        <p>Computers</p>
-        <p>10-Bullhead</p>
-        <p>Cecelia L</p>
-        <p>Clara M</p>
-        <p>2021-04-08</p>
-    </div>
-    <div class="record new">
-        <p></p>
-        <p>Printer Connect - C70 </p>
-        <p>Printers</p>
-        <p>08-Carson</p>
-        <p>Joe V</p>
-        <p>Brion M</p>
-        <p>2021-04-07</p>
+    <div class="records">
+    {% for ticket in tickets %}
+        <div class="record" data-href='{{ ticket.get_absolute_url }}'>
+            <p class="line {{ ticket.get_status_css_class }}">{{ ticket.subject }}</p>
+            <p>{{ ticket.category }}</p>
+            <p>DIVISION</p>
+            <p>{{ ticket.submitter }}</p>
+            <p>{{ ticket.get_assigned_to }}</p>
+            <p>{{ ticket.created }}</p>
+        </div>
+    {% endfor %}
     </div>
 </div>
 {% endblock content %}

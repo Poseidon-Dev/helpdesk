@@ -1,0 +1,23 @@
+# Environments
+.env
+*.env
+.venv
+env/
+venv/
+ENV/
+Test/
+env.bak/
+venv.bak/
+
+*.db
+
+volumnes/
+
+test.*
+*.test
+
+*.ini
+
+history/
+
+dumps/
