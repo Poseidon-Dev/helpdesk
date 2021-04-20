@@ -9,7 +9,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('tickets/', include(('tickets.urls', 'tickets'), namespace='tickets')),
     path('ticket/', ticket_view, name='ticket'),
-    path('', home_page_view, name='home' ),
+    path('', home_page_view, name='home'),
     path('home/', home_page_view, name='landing'),
 ]
 

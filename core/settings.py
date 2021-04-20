@@ -21,6 +21,7 @@ INSTALLED_APPS = [
 
     # Local
     'tickets.apps.TicketsConfig',
+    'users.apps.UsersConfig',
 
     # Third Party
     'allauth',
@@ -44,8 +45,6 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
-
-LOGIN_REDIRECT_URL = ('/home')
 
 ROOT_URLCONF = 'core.urls'
 
@@ -94,6 +93,17 @@ ACCOUNT_PRESERVE_USERNAME_CASING=False
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE=True
 ACCOUNT_USERNAME_BLACKLIST=[]
 ACCOUNT_USERNAME_REQUIRED=False
+ACCOUNT_ADAPTER = 'tickets.adapter.CustomAccountAdapter'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_DOMAIN_WHITELIST = ['arizonapipeline.com', 'alopextech.com']
+
+AUTH_USER_MODEL = 'users.User'
+LOGIN_REDIRECT_URL = 'home'
+ACCOUNT_LOGOUT_REDIRECT = 'login'
+LOGOUT_REDIRECT_URL = 'login'
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
