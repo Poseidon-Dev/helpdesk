@@ -15,10 +15,10 @@
         <div class="record" data-href='{{ ticket.get_absolute_url }}'>
             <p class="line {{ ticket.get_status_css_class }}">{{ ticket.subject }}</p>
             <p>{{ ticket.category }}</p>
-            <p>DIVISION</p>
+            <p>{{ ticket.division }}</p>
             <p>{{ ticket.submitter }}</p>
             <p>{{ ticket.get_assigned_to }}</p>
-            <p>{{ ticket.created }}</p>
+            <p>{{ ticket.created|date:"M dS h:i A" }}</p>
         </div>
     {% endfor %}
     </div>

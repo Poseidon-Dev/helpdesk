@@ -1,0 +1,53 @@
+{% extends 'base/accounts.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}Signup{% endblock title %}
+{% block accounts %}
+<section class="accounts">
+  <div class="wrapper">
+    <h1>Profile</h1>
+    <form id="profile_form" method="post">
+      {% csrf_token %}
+      <div class="input-wrapper">
+        {{ form.user }}
+      </div>
+      <div class="input-wrapper">
+        {{ form.first_name }}
+      </div>
+      <div class="input-wrapper">
+        {{ form.last_name }}
+      </div>
+      <div class="input-wrapper">
+        {{ form.employee_number }}
+      </div>
+      <div class="input-wrapper">
+        {{ form.division }}
+      </div>
+      <div class="input-wrapper">
+        {{ form.phone }}
+      </div>
+      <div class="input-wrapper">
+        {{ form.extension }}
+      </div>
+      
+      <div class="input-wrapper">
+        {% if form.errors %}
+          {% for field in form %}
+            {% for error in field.errors %}
+              <p class="error-color t-center">{{ error|escape }}</p>
+            {% endfor %}
+          {% endfor %}
+        {% endif %}
+      </div>
+      {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+      <div class="submit">
+        <button type="submit">Save Profile</button>
+
+      </div>
+    </form>
+  </div>
+</section>
+
+{% endblock accounts %}

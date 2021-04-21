@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, user_passes_test
 
-from core.decorators import group_required
+from core.decorators import group_required, profile_required
 
-# @login_required
-# @user_passes_test(lambda u: u.groups.filter(name='Technician').exists() | u.is_superuser)
+@login_required
+@profile_required
 def home_page_view(request):
     template = 'tickets/home.html'
     title = 'home'

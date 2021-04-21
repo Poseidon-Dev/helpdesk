@@ -4,7 +4,7 @@ from django.http import JsonResponse
 import json, os, requests
 from requests.auth import HTTPBasicAuth
 
-from .models import Ticket, Category, Users, Container
+from .models import Ticket, Category, Users, Container, Comment
 
 def ticket_home_view(request):
     template = 'tickets/home.html'
@@ -19,11 +19,13 @@ def ticket_home_view(request):
 def ticket_detail_view(request, id):
     template = 'tickets/ticket.html'
     ticket = Ticket.objects.get(id=id)
+    comments = Comment.objects.filter(ticket=ticket)
     title = ticket.id
 
     context = {
         'title': title,
         'ticket': ticket,
+        'comments': comments,
     }
     return render(request, template, context)
 

@@ -257,6 +257,13 @@ class Ticket(models.Model):
         blank=True,
         null=True,
     )
+    division = models.CharField(
+        verbose_name='Division',
+        max_length=100,
+        null=False,
+        blank=False,
+        default='None'
+    )
     status = models.IntegerField(
         _('Status'),
         choices=STATUS_CHOICES,
@@ -357,6 +364,11 @@ class Ticket(models.Model):
             self.priority = 3
         self.modified = timezone.now()
 
+        if self.technician:
+            self.status = 1
+
+        self.division = self.submitter.profile.get_division_display()
+
         super(Ticket, self).save(*args, **kwargs)
 
     def get_markdown(self):
@@ -373,13 +385,22 @@ class Comment(models.Model):
         Ticket,
         on_delete=models.CASCADE,
         verbose_name=_('Ticket'),
+        null=True,
+        blank=True,
+    )
+    master_comment = models.ForeignKey(
+        'Comment',
+        on_delete=models.CASCADE,
+        verbose_name=_('Master Comment'),
+        null=True,
+        blank=True,
     )
     date = models.DateTimeField(
         _('Date'),
         default=timezone.now()
     )
-    comment = models.TextField(
-        _('Comment'),
+    post = models.TextField(
+        _('Post'),
         blank=True,
         null=True,
     )
@@ -418,19 +439,19 @@ class Comment(models.Model):
         verbose_name_plural = _('Comments')
 
     def __str__(self):
-        return f'{self.comment}'
+        return f'{self.post}'
 
     def get_absolute_url(self):
         return u"%s#comments%s" % (self.ticket.get_absolute_url(), self.id)
 
     def save(self, *args, **kwargs):
-        ticket = self.ticket
-        ticket.modified = timezone.now()
-        ticket.save()
+        # ticket = self.ticket
+        # ticket.modified = timezone.now()
+        # ticket.save()
         super(Comment, self).save(*args, **kwargs)
 
     def get_markdown(self):
-        return get_markdown(self.comment)
+        return get_markdown(self.post)
 
 
 class Attachment(models.Model):
@@ -483,6 +504,10 @@ class Category(models.Model):
     def __str__(self):
         return self.category
 
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+
 
 class Employees(models.Model):
     employee = models.CharField(
@@ -492,6 +517,10 @@ class Employees(models.Model):
     )
     def __str__(self):
         return self.employee
+
+    class Meta:
+        verbose_name = 'Employee'
+        verbose_name_plural = 'Employees'
 
 
 class Users(models.Model):

@@ -48,7 +48,7 @@
                         </div>
                         <div class="button l-button">
                             <h3>Division</h3>
-                            <p>09-Pacific</p>
+                            <p>{{ ticket.division }}</p>
                         </div>
                         <div class="button l-button">
                             <h3>Category</h3>
@@ -56,7 +56,7 @@
                         </div>
                         <div class="button l-button">
                             <h3>Date</h3>
-                            <p>{{ ticket.created }}</p>
+                            <p>{{ ticket.created|date:"M dS h:i A" }}</p>
                         </div>
                         <span class="material-icons button s-button br-round">reply</span>
                     </div>
@@ -71,14 +71,14 @@
                 <p class="button">Notes</p>
             </div>
             <div class="comments">
-                {% for comment in ticket.comment_set.all %}
+                {% for comment in comments %}
                 <div class="comment">
-                    <div class="card">
+                    <div class="card {% if comment.master_comment %}inline {% endif %}">
                         <div class="head col {% if comment.public %} bg-primary {% else %}{% endif %}">
                             <span class="material-icons">account_circle</span>
                             <div class="info">
                                 <h3>{{ comment.user }}</h3>
-                                <p>{{ comment.date }}</p>
+                                <p>{{ comment.date|date:"M dS h:i A" }}</p>
                             </div>
                         </div>
                         <div class="body">
