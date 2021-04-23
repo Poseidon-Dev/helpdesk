@@ -84,7 +84,7 @@ class Migration(migrations.Migration):
                 ('priority', models.IntegerField(blank=3, choices=[(1, '1. Critical'), (2, '2. High'), (3, '3. Normal'), (4, '4. Low'), (5, '5. Very Low')], default=3, verbose_name='Priority')),
                 ('due_date', models.DateTimeField(blank=True, null=True, verbose_name='Due on')),
                 ('secret_key', models.CharField(default=tickets.models.mk_secret, max_length=36, verbose_name='Secret key')),
-                ('assocaited_employee', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='tickets.employees', verbose_name='Employees')),
+                ('associated_employee', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='tickets.employees', verbose_name='Employees')),
                 ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='tickets.category', verbose_name='Category')),
                 ('container', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='tickets.container', verbose_name='Container')),
                 ('master_ticket', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='tickets.ticket')),

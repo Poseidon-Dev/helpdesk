@@ -32,6 +32,7 @@ def ticket_create_view(request):
             issue=form.cleaned_data['issue'],
             category=form.cleaned_data['category'],
             subcategory=form.cleaned_data['subcategory'],
+            associated_employee=form.cleaned_data['associated_employee'],
             created=timezone.now(),
             status=Ticket.NEW_STATUS,
             submitter=request.user,

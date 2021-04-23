@@ -218,6 +218,8 @@ class Ticket(models.Model):
     issue = models.CharField(
         _('Issue'),
         max_length=200,
+        null=True,
+        blank=True
     )
     category = models.ForeignKey(
         'Category',
@@ -229,7 +231,7 @@ class Ticket(models.Model):
         on_delete=models.CASCADE,
         verbose_name=_('Sub Category')
     )
-    assocaited_employee = models.ForeignKey(
+    associated_employee = models.ForeignKey(
         'Employees',
         on_delete=models.CASCADE,
         verbose_name=_('Employees'),
@@ -374,7 +376,10 @@ class Ticket(models.Model):
         if self.technician:
             self.status = 1
 
-        self.subject = f'{self.category} - {self.subcategory}'
+        if self.associated_employee:
+            self.subject = f'{self.category} - {self.subcategory}({self.associated_employee})'
+        else:
+            self.subject = f'{self.category} - {self.subcategory}'
         self.division = self.submitter.profile.get_division_display()
 
         

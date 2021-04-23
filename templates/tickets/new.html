@@ -7,18 +7,16 @@
         <div class="form"> 
             <form id="newTicketForm" method="post" data-subcategories-url="{% url 'tickets:ajax_load_subcategories' %}">
             {% csrf_token %}
-                <div class="input-wrapper">
-                    <label for="category">Category</label>
+                    {% comment %} <label for="category">Category</label> {% endcomment %}
                     {{ form.category }}
-                </div>
-                <div class="input-wrapper">
-                    <label for="subcategory">Subcategory</label>
+                    {% comment %} <label for="subcategory">Subcategory</label> {% endcomment %}
                     {{ form.subcategory }}
-                </div>
-                <div class="input-wrapper">
-                    <label for="issue">Detail</label>
+                    {{ form.associated_employee }}
+                
                     {{ form.issue }}
-                </div>
+                
+                
+                
                 {% if form.errors %}
                     {% for field in form %}
                     {% for error in field.errors %}
@@ -39,6 +37,14 @@
     $("#id_category").change(function () {
         var categoryId = $(this).val();
         var url = $('#newTicketForm').attr("data-subcategories-url");
+        var employeeForm = $("#id_associated_employee");
+        
+        if (categoryId === '2') {
+            employeeForm.removeClass('hidden')
+        }
+        else {
+            employeeForm.addClass('hidden')
+        }
         
         $.ajax ({
             url: url,
@@ -46,11 +52,16 @@
                 'category': categoryId
             },
             success: function (data) {
-                console.log(data)
                 $("#id_subcategory").html(data);
             }
         })
+    });
 
+    $("#id_subcategory").change(function () {
+        console.log($(this).val())
+        if ($(this).val() === '2') {
+            console.log('here')
+        }
     });
 </script>
 {% endblock content %}

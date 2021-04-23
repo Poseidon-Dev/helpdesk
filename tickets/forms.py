@@ -24,21 +24,26 @@ class TicketForm(forms.ModelForm):
     #     label='Subject',
     # )
     issue = forms.CharField(
-        widget=forms.Textarea(attrs={'class': 'textarea'}),
-        required=True,
+        widget=forms.Textarea(attrs={'class': 'textarea', 'placeholder': 'Ticket Detail'}),
+        required=False,
         label='Detail',
     )
     category = forms.ModelChoiceField(
         queryset=Category.objects.all(),
         required=True,
         label='Category',
-        widget=forms.Select(attrs={'class': 'someselect'})
+        widget=forms.Select(attrs={'class': 'select'})
+    )
+    associated_employee = forms.ModelChoiceField(
+        queryset=Employees.objects.all(),
+        required=False,
+        widget=forms.Select(attrs={'class': 'select hidden'})
     )
     subcategory = forms.ModelChoiceField(
         queryset=SubCategory.objects.all(),
         required=True,
         label='Sub Category',
-        widget=forms.Select(attrs={'class': 'someselect'})
+        widget=forms.Select(attrs={'class': 'select'})
     )
     # submitter = forms.ModelChoiceField(
     #     queryset=User.objects.all(),
@@ -50,6 +55,9 @@ class TicketForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['subcategory'].queryset=SubCategory.objects.none()
+        self.fields['category'].empty_label = "Select Category..."
+        self.fields['subcategory'].empty_label = "Select Sub Category..."
+        self.fields['associated_employee'].empty_label = "Select Employee..."
 
         if 'category' in self.data:
             try:
@@ -60,7 +68,13 @@ class TicketForm(forms.ModelForm):
         elif self.instance.pk:
             self.fields['subcategory'].queryset = self.instance.category.subcategory_set.order_by('subcategory')
 
+        if 'associated_employee' in self.data:
+            try:
+                associated_employee = int(self.data.get('associated_employee'))
+            except (ValueError, TypeError):
+                pass
+
     class Meta:
         model = Ticket
         fields = '__all__'
-        exclude = ('assocaited_employee', 'container', 'subject', 'created', 'modified', 'submitter', 'technician', 'division', 'status', 'resolution', 'priority', 'due_date', 'secret_key', 'master_ticket')
+        exclude = ('container', 'subject', 'created', 'modified', 'submitter', 'technician', 'division', 'status', 'resolution', 'priority', 'due_date', 'secret_key', 'master_ticket')
