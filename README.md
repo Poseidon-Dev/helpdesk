@@ -39,6 +39,8 @@ The current progress of the application
 - [ ] Inventory views and management   
 - [ ] Ticket and Inventory integration 
 
+# Creating a ticket flow
+![Alt-Text](https://github.com/Poseidon-Dev/helpdesk/blob/main/misc/ticketcreation.gif)
 ## Current Internal Applications
 
 | Module <img width=200/>     | Description <img width=500/>                                                |
