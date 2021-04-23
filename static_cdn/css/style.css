@@ -187,6 +187,9 @@ i {
     margin-left: 100px;
 
 }
+.card .form{
+    padding: 25px;
+}
 .card .head {
     display: flex;
     border-top-left-radius: 10px;
@@ -260,7 +263,16 @@ i {
     align-items: flex-start;
     padding: 5px 10px;
 }
-
+.card .submit button {
+    padding: 10px 15px;
+    width: 100%;
+    color: var(--primary-color-1);
+    font-size: .9rem;
+    transition: all 0.2s ease-out;
+    border: 0.1px solid rgba(72, 124, 175, 0.2);
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
 /* Forms */
 * input:not([type="checkbox"]),
 * select,
@@ -727,6 +739,28 @@ i {
     background-color: var(--primary-color-2);
 } */
 
+/* ====== Main-Form ====== */
+.main-form {
+    padding: 25px;
+}
+.main-form .wrapper {
+    padding: 25px;
+}
+.main-form .input-wrapper {
+    padding: 15px;
+    border-bottom: var(--border-medium);
+}
+.main-form .input-wrapper label {
+    min-height: 40px;
+}
+.main-form .input-wrapper:last-of-type {
+    border-bottom: none;
+}
+.main-form .textarea {
+    border: var(--border-medium);
+}
+
+/* ====== END Main-Form ====== */
 
 
 /* ====== Ticket Detail Page ====== */

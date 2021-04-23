@@ -1,0 +1,56 @@
+{% extends 'base/base.html' %}
+{% block content %}
+{% include 'base/title.html' %}
+
+<section class='main-form'>
+    <div class="card">
+        <div class="form"> 
+            <form id="newTicketForm" method="post" data-subcategories-url="{% url 'tickets:ajax_load_subcategories' %}">
+            {% csrf_token %}
+                <div class="input-wrapper">
+                    <label for="category">Category</label>
+                    {{ form.category }}
+                </div>
+                <div class="input-wrapper">
+                    <label for="subcategory">Subcategory</label>
+                    {{ form.subcategory }}
+                </div>
+                <div class="input-wrapper">
+                    <label for="issue">Detail</label>
+                    {{ form.issue }}
+                </div>
+                {% if form.errors %}
+                    {% for field in form %}
+                    {% for error in field.errors %}
+                        <p class="error-color t-center">{{ error|escape }}</p>
+                    {% endfor %}
+                    {% endfor %}
+                {% endif %}
+                <div class="submit">
+                    <button type="submit">Create Ticket</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $("#id_category").change(function () {
+        var categoryId = $(this).val();
+        var url = $('#newTicketForm').attr("data-subcategories-url");
+        
+        $.ajax ({
+            url: url,
+            data: {
+                'category': categoryId
+            },
+            success: function (data) {
+                console.log(data)
+                $("#id_subcategory").html(data);
+            }
+        })
+
+    });
+</script>
+{% endblock content %}

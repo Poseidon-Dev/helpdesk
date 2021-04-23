@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.conf import settings
 from django.http import JsonResponse
+from django.utils import timezone
 import json, os, requests
 from requests.auth import HTTPBasicAuth
 
-from .models import Ticket, Category, Users, Container, Comment
+from .models import Ticket, Category, Users, Container, Comment, SubCategory
+from .forms import TicketForm
 
 def ticket_home_view(request):
     template = 'tickets/home.html'
@@ -15,6 +17,41 @@ def ticket_home_view(request):
         'tickets': tickets
     }
     return render(request, template, context)
+
+def ticket_create_view(request):
+    template = 'tickets/new.html'
+    title='Create Ticket'
+    container = Container.objects.get(id=1)
+    
+    form = TicketForm(request.POST or None)
+
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance = Ticket(
+            container=container,
+            issue=form.cleaned_data['issue'],
+            category=form.cleaned_data['category'],
+            subcategory=form.cleaned_data['subcategory'],
+            created=timezone.now(),
+            status=Ticket.NEW_STATUS,
+            submitter=request.user,
+            priority=3,
+        )
+        instance.save()
+        return redirect('tickets:home')
+
+    context = {
+        'title': title,
+        'form' : form,
+    }
+
+    return render(request, template, context)
+
+def load_subcategories(request):
+    category_id = request.GET.get('category')
+    subcategories = SubCategory.objects.filter(category_id=category_id).order_by('subcategory')
+    return render(request, 'tickets/subcategory_dl_list.html', {'subcategories': subcategories})
+
 
 def ticket_detail_view(request, id):
     template = 'tickets/ticket.html'

@@ -212,6 +212,8 @@ class Ticket(models.Model):
     subject = models.CharField(
         _('Subject'),
         max_length=100,
+        blank=True,
+        null=True,
     )
     issue = models.CharField(
         _('Issue'),
@@ -221,6 +223,11 @@ class Ticket(models.Model):
         'Category',
         on_delete=models.CASCADE,
         verbose_name=_('Category')
+    )
+    subcategory = models.ForeignKey(
+        'SubCategory',
+        on_delete=models.CASCADE,
+        verbose_name=_('Sub Category')
     )
     assocaited_employee = models.ForeignKey(
         'Employees',
@@ -232,7 +239,7 @@ class Ticket(models.Model):
     container = models.ForeignKey(
         'Container',
         on_delete=models.CASCADE,
-        verbose_name=_('Container')
+        verbose_name=_('Container'),
     )
     created = models.DateTimeField(
         _('Created'),
@@ -367,7 +374,10 @@ class Ticket(models.Model):
         if self.technician:
             self.status = 1
 
+        self.subject = f'{self.category} - {self.subcategory}'
         self.division = self.submitter.profile.get_division_display()
+
+        
 
         super(Ticket, self).save(*args, **kwargs)
 
@@ -500,6 +510,7 @@ class Category(models.Model):
         max_length=20,
         null=False,
         blank=False,
+        unique=True,
     )
     def __str__(self):
         return self.category
@@ -507,6 +518,29 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
+
+class SubCategory(models.Model):
+    category = models.ForeignKey(
+        'Category',
+        verbose_name='Category',
+        on_delete=models.CASCADE,
+        null=False,
+        blank=False,
+    )
+    subcategory = models.CharField(
+        max_length=50,
+        null=False,
+        blank=False,
+        unique=True,
+    )
+
+    def __str__(self):
+        return self.subcategory
+    class Meta:
+        verbose_name = 'Sub Category'
+        verbose_name_plural = 'Sub Categories'
+
+
 
 
 class Employees(models.Model):

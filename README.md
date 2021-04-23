@@ -21,6 +21,7 @@ The current progress of the application
 - [x] Emailing system creation         
 - [x] Authentication System            
 - [x] Email Authentication integration 
+- [ ] Category and Subcategory design pattern      
 - [ ] Ticket entry design pattern      
 - [ ] Inline Comment integration       
 - [ ] Profile Management               
