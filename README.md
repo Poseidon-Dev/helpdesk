@@ -32,6 +32,8 @@ The current progress of the application
 - [ ] ALPHA RELEASE                    
 - [ ] AJAX View integration            
 - [ ] HRM API integration              
+- [ ] Google Admin API integration              
+- [ ] Verizon API integration              
 - [ ] Build Inventory Management System
 - [ ] Inventory views and management   
 - [ ] Ticket and Inventory integration 
