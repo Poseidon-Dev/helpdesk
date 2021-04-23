@@ -44,7 +44,3 @@ The current progress of the application
 | Profiles                    | 1 to 1 connection with users to integrate accessory information             |
 | Tickets                     | Application core, issue generation and tracking                             |
 
-
-## Potential future modules
-
-- [ ]
