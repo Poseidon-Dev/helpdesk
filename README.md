@@ -15,28 +15,26 @@ If you need some help for something, please reach out to me directly or submit a
 
 The current progress of the application 
 
-| Injection <img width=200/>         | What it is <img width=500/>                                                 |
-| -----------------------------------| ----------------------------------------------------------------------------|
-| Database Design                    |    [x]      |
-| CSS Library                        |    [x]      |
-| HTML Templates                     |    [x]      |
-| Emailing system creation           |    [x]      |
-| Authentication System              |    [x]      |
-| Email Authentication integration   |    [x]      |
-| Ticket entry design pattern        |    [ ]      |
-| Inline Comment integration         |    [ ]      |
-| Profile Management                 |    [ ]      |
-| Multi-Container support            |    [ ]      |
-| Data filters and views             |    [ ]      |
-| Security Decorators                |    [ ]      |
-| Email ticket polling               |    [ ]      |
-| JitBit API async pulls             |    [ ]      |
-| ALPHA RELEASE                      |    [ ]      |
-| AJAX View integration              |    [ ]      |
-| HRM API integration                |    [ ]      |
-| Build Inventory Management System  |    [ ]      |
-| Inventory views and management     |    [ ]      |
-| Ticket and Inventory integration   |    [ ]      |
+- [x] Database Design                  
+- [x] CSS Library                      
+- [x] HTML Templates                   
+- [x] Emailing system creation         
+- [x] Authentication System            
+- [x] Email Authentication integration 
+- [ ] Ticket entry design pattern      
+- [ ] Inline Comment integration       
+- [ ] Profile Management               
+- [ ] Multi-Container support          
+- [ ] Data filters and views           
+- [ ] Security Decorators              
+- [ ] Email ticket polling             
+- [ ] JitBit API async pulls           
+- [ ] ALPHA RELEASE                    
+- [ ] AJAX View integration            
+- [ ] HRM API integration              
+- [ ] Build Inventory Management System
+- [ ] Inventory views and management   
+- [ ] Ticket and Inventory integration 
 
 ## Current Internal Applications
 
